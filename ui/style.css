@@ -21,7 +21,7 @@ body {
 }
 
 .container{
-       max-width: 800px;
+  max-width: 800px;
     background-color: aqua;
     margin: 0 auto;
     font-style: italic;
