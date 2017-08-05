@@ -4,8 +4,9 @@ var path = require('path');
 
 var app = express();
 app.use(morgan('combined'));
-var articleone = {
-    title: 'Article oe | Rekha',
+var articles = {
+articleone : {
+    title: 'Article one | Rekha',
     heading: 'Article one',
     date:   'aug 01 2017',
     content: 
@@ -19,6 +20,40 @@ var articleone = {
         Human need to build bouts carefuly so that they avoid wars between machines
         And beteen man & machine
     </p>`
+},
+articletwo:{
+    title: 'Article two | Deepa Rekha',
+    heading: 'Article  two',
+    date:   'aug 02 2017',
+    content: 
+        `<p>
+        two Human race needs to fight the Aliens 
+        two Human need to build bouts carefuly so that they avoid wars between machines
+        two And beteen man & machine
+    </p>
+    <p>
+        three Human race needs to fight the Aliens 
+        three Human need to build bouts carefuly so that they avoid wars between machines
+        three And beteen man & machine
+    </p>`
+},
+articlethree: {
+    title: 'Article three | Deepa',
+    heading: 'Article three',
+    date:   'aug 03 2017',
+    content: 
+        `<p>
+        Human race needs to fight the Aliens 
+        Human need to build bouts carefuly so that they avoid wars between machines
+        And beteen man & machine
+    </p>
+    <p>
+        Human race needs to fight the Aliens 
+        Human need to build bouts carefuly so that they avoid wars between machines
+        And beteen man & machine
+    </p>`
+    
+}
 };
 //takes a document obj
 function createart (doc) {
@@ -67,11 +102,13 @@ app.get('/article-one', function (req, res) {
 });
 app.get('/article-two', function (req, res) {
   //res.send('article two will be served here');
-  res.sendFile(path.join(__dirname, 'ui', 'article-two.html'));
+ // res.sendFile(path.join(__dirname, 'ui', 'article-two.html'));
+ res.send(createart(articletwo));
 });
 app.get('/article-three', function (req, res) {
   //res.send('article three will be served here');
-  res.sendFile(path.join(__dirname, 'ui', 'article-three.html'));
+  //res.sendFile(path.join(__dirname, 'ui', 'article-three.html'));
+  res.send(createart(articlethree));
 });
 
 app.get('/ui/style.css', function (req, res) {
