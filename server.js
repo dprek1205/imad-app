@@ -5,7 +5,7 @@ var path = require('path');
 var app = express();
 app.use(morgan('combined'));
 var articles = {
-articleone : {
+'article-one' : {
     title: 'Article one | Rekha',
     heading: 'Article one',
     date:   'aug 01 2017',
@@ -21,7 +21,7 @@ articleone : {
         And beteen man & machine
     </p>`
 },
-articletwo:{
+'article-two':{
     title: 'Article two | Deepa Rekha',
     heading: 'Article  two',
     date:   'aug 02 2017',
@@ -37,7 +37,7 @@ articletwo:{
         three And beteen man & machine
     </p>`
 },
-articlethree: {
+'article-three': {
     title: 'Article three | Deepa',
     heading: 'Article three',
     date:   'aug 03 2017',
@@ -95,21 +95,26 @@ function createart (doc) {
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'index.html'));
 });
-app.get('/article-one', function (req, res) {
+//app.get('/article-one', function (req, res) {
+
   //res.send('article one will be served here');
  //  res.sendFile(path.join(__dirname, 'ui', 'article-one.html'));
- res.send(createart(articleone));
+ app.get('/:articleName', function (req, res) {
+ var articleName=req.params.articleName;
+ res.send(createart(articles[articleName]));
 });
+/*
 app.get('/article-two', function (req, res) {
-  //res.send('article two will be served here');
- // res.sendFile(path.join(__dirname, 'ui', 'article-two.html'));
+ res.send('article two will be served here');
+   res.sendFile(path.join(__dirname, 'ui', 'article-two.html'));
  res.send(createart(articletwo));
 });
 app.get('/article-three', function (req, res) {
-  //res.send('article three will be served here');
-  //res.sendFile(path.join(__dirname, 'ui', 'article-three.html'));
+  res.send('article three will be served here');
+  res.sendFile(path.join(__dirname, 'ui', 'article-three.html'));
   res.send(createart(articlethree));
 });
+*/
 
 app.get('/ui/style.css', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'style.css'));
