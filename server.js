@@ -55,7 +55,7 @@ function createart (doc) {
 </body>
 </html>`;
 //returns html string
-    return htmltemplate;
+    return doctemp;
 }
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'index.html'));
