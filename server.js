@@ -4,13 +4,66 @@ var path = require('path');
 
 var app = express();
 app.use(morgan('combined'));
-
+var articleone = {
+    title: 'Article oe | Rekha',
+    heading: 'Article one',
+    date:   'aug 01 2017',
+    content: 
+        `<p>
+        Human race needs to fight the Aliens 
+        Human need to build bouts carefuly so that they avoid wars between machines
+        And beteen man & machine
+    </p>
+    <p>
+        Human race needs to fight the Aliens 
+        Human need to build bouts carefuly so that they avoid wars between machines
+        And beteen man & machine
+    </p>`
+};
+//takes a document obj
+function createart (doc) {
+    var title=doc.title;
+    var heading=doc.heading;
+    var date=doc.date;
+    var content=doc.content;
+    
+    var doctemp=`
+    <html>
+    <head>
+    <title>
+        ${title}
+    </title>
+    <meta name="viewport" content="width-device-width,inital-scale-1"/>
+    <link href="ui/style.css" rel="stylesheet"/>
+    </head>
+<body>
+    <div class="container">
+    <div>
+        <a href="/">Home</a>
+    </div>
+    <hr/>
+    <h3>
+        ${heading}
+    </h3>
+    <div>
+        ${date}
+    </div>
+    <div>
+    ${content}
+    </div>
+    </div>
+</body>
+</html>`;
+//returns html string
+    return htmltemplate;
+}
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'index.html'));
 });
 app.get('/article-one', function (req, res) {
   //res.send('article one will be served here');
-   res.sendFile(path.join(__dirname, 'ui', 'article-one.html'));
+ //  res.sendFile(path.join(__dirname, 'ui', 'article-one.html'));
+ res.send(createart(articleone));
 });
 app.get('/article-two', function (req, res) {
   //res.send('article two will be served here');
