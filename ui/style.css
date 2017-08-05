@@ -20,3 +20,13 @@ body {
     height: 200px;
 }
 
+.container{
+       max-width: 800px;
+    background-color: aqua;
+    margin: 0 auto;
+    font-style: italic;
+    padding-top: 63px;
+    padding-left: 20px;
+    padding-right: 20px;
+    font-family:comic sans;
+    } 
