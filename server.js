@@ -104,7 +104,7 @@ app.get('/', function (req, res) {
  res.send(createart(articles[articleName]));
 });
 app.get('/ui/main.js',function(req,res){
-    res.sendfile(path.join(_dirname,'ui',main.js))
+    res.sendfile(path.join(_dirname,'ui','main.js'));
     
 });
 /*
