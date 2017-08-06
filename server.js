@@ -103,10 +103,7 @@ app.get('/', function (req, res) {
  var articleName=req.params.articleName;
  res.send(createart(articles[articleName]));
 });
-app.get('/ui/main.js',function(req,res){
-    res.sendfile(path.join(_dirname,'ui','main.js'));
-    
-});
+
 /*
 app.get('/article-two', function (req, res) {
  res.send('article two will be served here');
