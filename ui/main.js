@@ -3,7 +3,7 @@ var ele=document.getElementById('main-text');
 ele.innerHTML='appolo spacecraft';
 
 var img=document.getElementById('madi');
-
+var marginLeft=0;
 function moveRight(){
     marginLeft+=1;
     img.style.marginLeft=marginLeft+'px';
