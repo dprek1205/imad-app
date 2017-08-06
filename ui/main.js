@@ -4,6 +4,7 @@ console.log('Loaded!');
 //capture thre sp *& store in var
 //render the var in span
 var button=document.getElementById('counter');
+var counter=0;
 button.onclick= function(){
     counter++;
     var span=document.getElementById('count');
