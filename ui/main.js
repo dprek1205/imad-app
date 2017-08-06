@@ -23,7 +23,7 @@ request.open('GET',"http://deepa042008.imad.hasura-app.io/counter",true);
 request.send(null);
 };
 var nameinp=document.getElementById("name");
-var entered_name=nameinp.value;
+var name=nameinp.value;
 var submit=document.getElementById("submit_btn");
 submit.onclick=function(){
     var names=['name1','name2','name3'];
