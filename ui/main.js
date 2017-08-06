@@ -17,5 +17,5 @@ img.onclick=function(){
   k=k+1;
 };
 
-console.log('going to console');
+console.log('going to console'+k);
 
