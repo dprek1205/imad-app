@@ -14,7 +14,7 @@ img.onclick=function(){
     marginLeft+=10;
     img.style.marginLeft = marginLeft+'px';
   //var interval=setInterval(moveRight,50);
-  k+=1;
+  //k+=1;
 };
 
 console.log('going to console');
