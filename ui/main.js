@@ -22,8 +22,6 @@ button.onclick= function(){
 request.open('GET',"http://deepa042008.imad.hasura-app.io/counter",true);
 request.send(null);
 };
-var nameinp=document.getElementById("name");
-var name=nameinp.value;
 var submit=document.getElementById("submit_btn");
 submit.onclick=function(){
   //  var names=['name1','name2','name3','name4'];
@@ -44,7 +42,11 @@ submit.onclick=function(){
                 
             }
         }
-};
+
+    };
+var nameinp=document.getElementById("name");
+var name=nameinp.value;
+
 request.open('GET','http://deepa042008.imad.hasura-app.io/submit-name?name='+name,true);
 request.send(null);
 };
