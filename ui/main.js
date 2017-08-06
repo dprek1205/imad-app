@@ -17,5 +17,5 @@ img.onclick=function(){
   k+=1;
 };
 
-alert('k is '+k);
+console.log('k is '+k);
 
