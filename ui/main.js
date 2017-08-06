@@ -1,6 +1,6 @@
 console.log('Loaded!');
-var ele=document.getElementById('main-text');
-ele.innerHTML='appolo spacecraft';
+//var ele=document.getElementById('main-text');
+//ele.innerHTML='appolo spacecraft';
 
 var img=document.getElementById('madi');
 var marginLeft=0;
