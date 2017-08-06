@@ -14,7 +14,8 @@ img.onclick=function(){
     marginLeft+=10;
     img.style.marginLeft = marginLeft+'px';
   //var interval=setInterval(moveRight,50);
+  k+=1;
 };
-k+=1;
-    alert('k is '+k);
+
+alert('k is '+k);
 
