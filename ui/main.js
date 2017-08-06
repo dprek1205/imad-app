@@ -2,20 +2,12 @@ console.log('Loaded!');
 //var ele=document.getElementById('main-text');
 //ele.innerHTML='appolo spacecraft';
 
-var img=document.getElementById('madi');
-var marginLeft=0;
-var k=0;
-/*function moveRight(){
-    marginLeft+=1;
-    img.style.marginLeft=marginLeft+'px';
-}*/
-
-img.onclick=function(){
-    marginLeft+=10;
-    img.style.marginLeft = marginLeft+'px';
-  //var interval=setInterval(moveRight,50);
-  k=k+1;
+//make a request to counter endpoint
+//capture thre sp *& store in var
+//render the var in span
+var counter=document.getElementById('counter');
+button.onclick= function(){
+    counter++;
+    var span=document.getElementById('count');
+    span.innerHTML=counter.tostring();
 };
-
-console.log('going to console'+k);
-
