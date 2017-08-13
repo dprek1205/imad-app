@@ -3,7 +3,20 @@ var morgan = require('morgan');
 var path = require('path');
 
 var app = express();
+var Pool=require('pg').Pool;
+var pool= new Pool();
+var config = {
+    user:'deepa042008',
+    database:'deepa042008',
+    host:'db-imad.hasura-app.io',
+    port:5432,
+    password:process.env.DB_PASSWORD
+    };
 app.use(morgan('combined'));
+//create a pool thread globally so that its there for the life time
+
+//make a connection pool create db config
+
 var articles = {
 'article-one' : {
     title: 'Article one | Rekha',
@@ -55,6 +68,20 @@ var articles = {
     
 }
 };
+//end ooint url
+app.get('test-db',function(req,res){
+    //make req
+    //create a response
+    
+    pool.query('select * from article',function(err,result){
+        if (err){
+            res.status(500).send(err.toString());
+        }
+        else {
+            res.send(JSON.stringify(result));
+        }
+        });
+});
 //takes a document obj
 function createart (doc) {
     var title=doc.title;
