@@ -70,9 +70,10 @@ var articles = {
 };
 //end ooint url
 app.get('test-db',function(req,res){
+    alert('in end url get');
     //make req
     //create a response
-    
+    /*
     pool.query('select * from user',function(err,result){
         if (err){
             res.status(500).send(err.toString());
@@ -81,6 +82,7 @@ app.get('test-db',function(req,res){
             res.send(JSON.stringify(result));
         }
         });
+        */
 });
 //takes a document obj
 function createart (doc) {
