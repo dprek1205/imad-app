@@ -1,10 +1,11 @@
 var express = require('express');
 var morgan = require('morgan');
 var path = require('path');
+app.use(morgan('combined'));
 
 var app = express();
 var Pool=require('pg').Pool;
-var pool= new Pool();
+
 var config = {
     user:'deepa042008',
     database:'deepa042008',
@@ -12,7 +13,9 @@ var config = {
     port:5432,
     password:process.env.DB_PASSWORD
     };
-app.use(morgan('combined'));
+
+var pool= new Pool();
+
 //create a pool thread globally so that its there for the life time
 
 //make a connection pool create db config
