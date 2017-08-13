@@ -74,7 +74,7 @@ var articles = {
 }
 };
 //end ooint url
-app.get('test-db',function(req,res){
+app.get('/test-db',function(req,res){
     alert('in end url get');
     //make req
     //create a response
