@@ -75,6 +75,7 @@ var articles = {
 }
 };
 //end ooint url
+/*
 app.get('/test-db',function(req,res){
     //alert('in end url get');
     //make req
@@ -90,6 +91,29 @@ app.get('/test-db',function(req,res){
         });
         
 });
+*/
+app.get('/artoc;es/:articleName',function(req,res){
+    //alert('in end url get');
+    //make req
+    //create a response
+
+    pool.query('select * from article where article_id='+req.params.articleName,function(err,result){
+        if (err){
+            res.status(500).send(err.toString());
+        }
+        else {
+            if (result.rows.length === 0){
+                res.status(404).send('article not found');
+            }
+            else {
+                  var articleData=result.rows[0];
+                  res.send(creatart(articleData));
+                 }
+        }
+        });
+    
+});
+
 //takes a document obj
 function createart (doc) {
     var title=doc.title;
