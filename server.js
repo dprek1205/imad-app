@@ -1,3 +1,4 @@
+
 var express = require('express');
 var morgan = require('morgan');
 var path = require('path');
@@ -75,11 +76,11 @@ var articles = {
 };
 //end ooint url
 app.get('/test-db',function(req,res){
-    alert('in end url get');
+    //alert('in end url get');
     //make req
     //create a response
 
-    pool.query('select * from article',function(err,result){
+    pool.query('select * from test',function(err,result){
         if (err){
             res.status(500).send(err.toString());
         }
@@ -109,7 +110,7 @@ function createart (doc) {
     <div class="container">
     <div>
         <a href="/">Home</a>
-    </div>
+        </div>
     <hr/>
     <h3>
         ${heading}
