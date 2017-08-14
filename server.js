@@ -17,7 +17,7 @@ var config = {
     password:process.env.DB_PASSWORD
     };
 
-var pool= new Pool();
+var pool= new Pool(config);
 
 //create a pool thread globally so that its there for the life time
 
