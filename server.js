@@ -92,7 +92,7 @@ app.get('/test-db',function(req,res){
         
 });
 */
-app.get('/artoc;es/:articleName',function(req,res){
+app.get('/articles/:articleName',function(req,res){
     //alert('in end url get');
     //make req
     //create a response
