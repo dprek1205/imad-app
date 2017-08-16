@@ -157,8 +157,8 @@ app.get('/', function (req, res) {
 });
 
 app.post('/create-user',function(req,res) {
-    var username=rec.body.username;
-    var password=rec.body.password;
+    var username=req.body.username;
+    var password=req.body.password;
     var salt=crypto.randomBytes(128).toString('hex');
     var dbstring=hash(password,salt);
   pool.query('INSERT INTO "USER" (username,password) values($1,$2)',[username,dbstring],function(err,result){
@@ -178,7 +178,7 @@ function hash(input,salt){
     //password paste key derivation function. input+salt string hashed 10000 times. 1st hash is 512 bytes. that hashed o/p is rehashed
     //sha512 - openssl alg
     //choose salt string randomly generated salt string.  even user chooses commonly used password, this random string will protect hackers
-   //    return hashed.toString('hex');
+   //  return hashed.toString('hex');
      return ["pbkdf","10000",salt,hashed.toString('hex')].join("$");
 }
 //create password hassing end point.takes i/p as part of url & returns a string that represents the manner password will be stored
