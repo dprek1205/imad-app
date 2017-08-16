@@ -157,7 +157,7 @@ app.get('/', function (req, res) {
 });
 
 function hash(input,salt){
-    var hashed= crypto.pbkdf2Sync(input,salt,10000,512,sha512)
+    var hashed= crypto.pbkdf2Sync(input,salt,10000,512,'sha512')
     //crypto.pbkdf2('secret', 'salt', 100000, 512, 'sha512', (err, derivedKey)
     //password paste key derivation function. input+salt string hashed 10000 times. 1st hash is 512 bytes. that hashed o/p is rehashed
     //sha512 - openssl alg
