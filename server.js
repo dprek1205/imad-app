@@ -2,7 +2,7 @@
 var express = require('express');
 var morgan = require('morgan');
 var path = require('path');
-
+var crypto=require('crypto');
 
 var app = express();
 app.use(morgan('combined'));
@@ -155,6 +155,19 @@ function createart (doc) {
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'index.html'));
 });
+
+function hash(input,salt){
+    var hashed= crypto.pbkdf2Sync(input,salt,10000,512,sha512)
+    //crypto.pbkdf2('secret', 'salt', 100000, 512, 'sha512', (err, derivedKey)
+    return hashed.toString('hex');
+}
+//create password hassing end point.takes i/p as part of url & returns a string that represents the manner password will be stored
+app.get('/hash/:input',function(req,res){
+    var salt='this-is-a-random-string;'
+    var hashedString=hash(req.params.input,salt);
+    res.send(hashedString);
+});
+
 var counter=0;
 app.get('/counter', function (req, res) {
 counter+=1;
