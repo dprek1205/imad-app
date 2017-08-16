@@ -3,10 +3,10 @@ var express = require('express');
 var morgan = require('morgan');
 var path = require('path');
 var crypto=require('crypto');
-
+var bodyParser=require('body-parser');
 var app = express();
 app.use(morgan('combined'));
-
+app.use(bodyParser.json());
 var Pool=require('pg').Pool;
  
 var config = {
@@ -156,6 +156,22 @@ app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'index.html'));
 });
 
+app.post('/create-user',function(req,res) {
+    var username=rec.body.username;
+    var password=rec.body,password;
+    var salt=crypto.randomBytes(128).toString('hex');
+    var dbstring=hash(password,salt);
+  pool.query('INSERT INTO "USER" (username,password) values($1,$2)',[username,dbstring],function(err,result){
+        if (err){
+            res.status(500).send(err.toString());
+        }
+        else {
+              res.send('user created successfully ' + username);
+            }
+      
+  });
+    
+});
 function hash(input,salt){
     var hashed= crypto.pbkdf2Sync(input,salt,10000,512,'sha512')
     //crypto.pbkdf2('secret', 'salt', 100000, 512, 'sha512', (err, derivedKey)
