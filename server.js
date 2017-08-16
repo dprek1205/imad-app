@@ -162,8 +162,8 @@ function hash(input,salt){
     //password paste key derivation function. input+salt string hashed 10000 times. 1st hash is 512 bytes. that hashed o/p is rehashed
     //sha512 - openssl alg
     //choose salt string randomly generated salt string.  even user chooses commonly used password, this random string will protect hackers
-       return hashed.toString('hex');
-        //return ['pbkdf',10000,salt,hashed.toString('hex')].join();
+   //    return hashed.toString('hex');
+     return ['pbkdf',10000,salt,hashed.toString('hex')].join();
 }
 //create password hassing end point.takes i/p as part of url & returns a string that represents the manner password will be stored
 app.get('/hash/:input',function(req,res){
