@@ -173,7 +173,7 @@ app.post('/create-user',function(req,res) {
     
 });
 function hash(input,salt){
-    var hashed= crypto.pbkdf2Sync(input,salt,10000,512,'sha512')
+    var hashed= crypto.pbkdf2Sync(input,salt,10000,512,'sha512');
     //crypto.pbkdf2('secret', 'salt', 100000, 512, 'sha512', (err, derivedKey)
     //password paste key derivation function. input+salt string hashed 10000 times. 1st hash is 512 bytes. that hashed o/p is rehashed
     //sha512 - openssl alg
@@ -183,7 +183,7 @@ function hash(input,salt){
 }
 //create password hassing end point.takes i/p as part of url & returns a string that represents the manner password will be stored
 app.get('/hash/:input',function(req,res){
-    var salt='this-is-a-random-string;'
+    var salt='this-is-a-random-string';
     var hashedString=hash(req.params.input,salt);
     res.send(hashedString);
 });
