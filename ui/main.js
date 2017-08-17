@@ -3,6 +3,7 @@ console.log('Loaded!');
 
 //capture the resp & store 
 //render the var in span
+/*
 var button=document.getElementById('counter');
 var counter=0;
 button.onclick= function(){
@@ -17,8 +18,12 @@ button.onclick= function(){
             }
         }
         
-    }; /*end of onready*/
+    };
+    */
+    /*end of onready*/
+    
 //make a request to counter endpoint
+/*
 request.open('GET',"http://deepa042008.imad.hasura-app.io/counter",true);
 request.send(null);
 };
@@ -44,9 +49,36 @@ submit.onclick=function(){
         }
 
     };
-var nameinp=document.getElementById("name");
-var name=nameinp.value;
+    */
+    
+var submit=document.getElementById("submit_btn");
 
-request.open('GET','http://deepa042008.imad.hasura-app.io/submit-name?name='+name,true);
-request.send(null);
+submit.onclick=function(){
+
+    var  request=new XMLHttpRequest();
+    request.onreadystatechange=function(){
+        if (request.readyState === XMLHttpRequest.DONE) {
+            if (request.status === 200) {
+                console.log('user logged in');
+                alert('logged in successfully');
+            }
+            else if (request.status === 403){
+                alert('username/password incorrect 1 ');
+            }
+            else if (request.status === 500){
+                alert('something went wrong in server');
+        }
+        }
+    };
+
+//var nameinp=document.getElementById("name");
+//var name=nameinp.value;
+var username=document.getElementByid('username').value;
+var password=document.getElementByid('password').value;
+console.log(username+":"+password);
+request.setRequestHeader('Content-Type','application/json');
+
+//request.open('GET','http://deepa042008.imad.hasura-app.io/submit-name?name='+name,true);
+request.open('POST','http://deepa042008.imad.hasura-app.io/login',true);
+request.send(JSON.stringfy({username:username,password:password}));
 };
