@@ -5,9 +5,10 @@ var path = require('path');
 var crypto=require('crypto');
 var bodyParser=require('body-parser');
 var app = express();
+var Pool=require('pg').Pool;
 app.use(morgan('combined'));
 app.use(bodyParser.json());
-var Pool=require('pg').Pool;
+
  
 var config = {
     user:'deepa042008',
@@ -174,7 +175,6 @@ app.post('/create-user',function(req,res) {
 });
 
 //fetches the user entered username,password & checks if its correct & present in db user table
-/*
 app.post('/login',function(req,res){
     var username=req.body.username;
     var password=req.body.password;
@@ -210,7 +210,7 @@ app.post('/login',function(req,res){
         }
     });
 });
-*/
+
 function hash(input,salt){
     var hashed= crypto.pbkdf2Sync(input,salt,10000,512,'sha512');
     //crypto.pbkdf2('secret', 'salt', 100000, 512, 'sha512', (err, derivedKey)
