@@ -73,8 +73,8 @@ submit.onclick=function(){
 
 //var nameinp=document.getElementById("name");
 //var name=nameinp.value;
-var username=document.getElementByid('username').value;
-var password=document.getElementByid('password').value;
+var username=document.getElementById('username').value;
+var password=document.getElementById('password').value;
 console.log(username+":"+password);
 request.setRequestHeader('Content-Type','application/json');
 
