@@ -193,7 +193,7 @@ app.post('/login',function(req,res){
           {
               console.log('before dbstring'+result.rows[0].password);
               var dbString=result.rows[0].password;
-              var salt=dbstring.spilt('$')[2];
+              var salt=dbString.spilt('$')[2];
               //hash the user entered password after adding SALT & check this with what was stored in table
               console.log('before calling hash fn');
               var hashedString=hash(password,salt);
