@@ -191,6 +191,7 @@ app.post('/login',function(req,res){
          if (result.rows.length === 0)
           {
               // yours res.send(403).send('1 username/password invalid'+username);
+              window.alert('0');
               res.send(403).send('username/password invalid');
           }
           else 
