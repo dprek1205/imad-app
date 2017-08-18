@@ -180,8 +180,6 @@ app.post('/create-user',function(req,res) {
 app.post('/login',function(req,res){
     var username = req.body.username;
     var password=req.body.password;
-    // alert('in server post'+username+password);
-    // alert('SELECT * FROM "user" WHERE username = $1',[username]);
     pool.query('SELECT * FROM "user" WHERE username = $1',[username],function(err,result){
         if (err)
         {
@@ -196,7 +194,7 @@ app.post('/login',function(req,res){
           }
           else 
           {
-           // yours   console.log('before dbstring'+result.rows[0].password);
+
         
           console.log('before dbstring');
         
