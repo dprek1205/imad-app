@@ -33,7 +33,9 @@ request.open('POST','http://deepa042008.imad.hasura-app.io/login',true);
 request.setRequestHeader('Content-Type', 'application/json');
 
 //request.send(JSON.stringify({username: username, password: password}));
-var to_send = {username: 'username', password: 'password'};
-console.log(to_send[0]+":"+to_send[1]);
-request.send(JSON.stringify(to_send));
+//var to_send = {username: 'username', password: 'password'};
+//console.log(to_send[0]+":"+to_send[1]);
+//request.send(JSON.stringify(to_send));
+request.send(JSON.stringfy({username: username, password: password}));
+
 };
