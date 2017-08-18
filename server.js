@@ -240,10 +240,10 @@ app.post('/login',function(req,res){
 //create another end point  to check the session persistence
 app.get('/check-login',function(req,res){
 if (req.session && req.session.auth && req.session.auth.userId) {
-    req.send('You are logged in' + req.session.auth.userId.toString());
+    res.send('You are logged in' + req.session.auth.userId.toString());
 }
 else{
-    req.send('You are not logged in');
+    res.send('You are not logged in');
 }
 
 });
