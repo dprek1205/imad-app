@@ -196,10 +196,10 @@ app.post('/login',function(req,res){
           else 
           {
            // yours   console.log('before dbstring'+result.rows[0].password);
-           alert('1');
+          windows.alert('1');
               var dbString = result.rows[0].password;
               var salt = dbString.spilt('$')[2];
-                alert('2');
+                windows.alert('2');
               
               //hash the user entered password after adding SALT & check this with what was stored in table
             // yours  console.log('before calling hash fn'+salt);
@@ -207,17 +207,17 @@ app.post('/login',function(req,res){
 // yours              var hashedString=hash(password,salt);
               var hashedPassword = hash(password,salt);
               
-                alert('3');
+                windows.alert('3');
               //console.log('before comparing'+hashedString+":"+dbString);
               
               // yours if (hashedString === dbString){
               if (hashedPassword === dbString){
-           alert('4');
+           windows.alert('4');
                  res.send('credentials are corrrect');
               }
               else 
               {
-                    alert('5');
+                    windows.alert('5');
                   res.send(403).send('2 username/password invalid');
               }
           }   
