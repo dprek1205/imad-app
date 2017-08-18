@@ -191,16 +191,16 @@ app.post('/login',function(req,res){
          if (result.rows.length === 0)
           {
               // yours res.send(403).send('1 username/password invalid'+username);
-              window.alert('0');
+              
               res.send(403).send('username/password invalid');
           }
           else 
           {
            // yours   console.log('before dbstring'+result.rows[0].password);
-        window.alert('1');
+        
               var dbString = result.rows[0].password;
               var salt = dbString.spilt('$')[2];
-        window.alert('2'); 
+        
               
               //hash the user entered password after adding SALT & check this with what was stored in table
             // yours  console.log('before calling hash fn'+salt);
@@ -208,17 +208,17 @@ app.post('/login',function(req,res){
 // yours              var hashedString=hash(password,salt);
               var hashedPassword = hash(password,salt);
               
-                window.alert('3');
+        
               //console.log('before comparing'+hashedString+":"+dbString);
               
               // yours if (hashedString === dbString){
               if (hashedPassword === dbString){
-           window.alert('4');
+        
                  res.send('credentials are corrrect');
               }
               else 
               {
-                    window.alert('5');
+        
                   res.send(403).send('2 username/password invalid');
               }
           }   
