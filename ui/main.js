@@ -36,6 +36,6 @@ request.setRequestHeader('Content-Type', 'application/json');
 //var to_send = {username: 'username', password: 'password'};
 //console.log(to_send[0]+":"+to_send[1]);
 //request.send(JSON.stringify(to_send));
-request.send(JSON.stringfy({username: username, password: password}));
+request.send(JSON.stringify({username: username, password: password}));
 
 };
