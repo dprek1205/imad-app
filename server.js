@@ -5,6 +5,8 @@ var path = require('path');
 var crypto=require('crypto');
 var Pool=require('pg').Pool;
 var bodyParser=require('body-parser');
+var session=require('express-session');
+
 var config = {
     user:'deepa042008',
     database:'deepa042008',
@@ -17,7 +19,10 @@ var app = express();
 
 app.use(morgan('combined'));
 app.use(bodyParser.json());
-
+app.use(session({
+    secret:'someRandomSecretValue',
+    cookie:{maxAge:1000*60*60*24*30}
+}));
  
 
 var pool= new Pool(config);
@@ -213,7 +218,12 @@ app.post('/login',function(req,res){
               
               // yours if (hashedString === dbString){
               if (hashedPassword === dbString){
-        
+//set the session value before sending the response.The session libr creates a session object for the request
+//user id table. auth is key in session object. 
+                 req.session.auth={userId:result.rows[0].id};
+                 //session middleware is setting a cookie with a randomly generated cookie. maps session id to an object with value which in turn contains userId object. 
+                 //express session libr ensures that the session token.userid combination for the domain is saved as soon as the response is sent
+                 
                  res.send('credentials are corrrect');
               }
               else 
@@ -225,6 +235,17 @@ app.post('/login',function(req,res){
         }
         
     });
+});
+
+//create another end point  to check the session persistence
+app.get('/check-login',function(req,res){
+if (req.session && req.session.auth && req.session.auth.userId) {
+    req.send('You are logged in'+userId.toString());
+}
+else{
+    req.send('You are not logged in');
+}
+
 });
 
 function hash(input,salt){
@@ -260,7 +281,7 @@ res.send(JSON.stringify(names));
   //res.send('article one will be served here');
  //  res.sendFile(path.join(__dirname, 'ui', 'article-one.html'));
  app.get('/:articleName', function (req, res) {
- var articleName=req.params.articleName;
+  articleName=req.params.articleName;
  res.send(createart(articles[articleName]));
 });
 
