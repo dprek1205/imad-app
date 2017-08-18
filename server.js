@@ -3,13 +3,8 @@ var express = require('express');
 var morgan = require('morgan');
 var path = require('path');
 var crypto=require('crypto');
-var bodyParser=require('body-parser');
-var app = express();
 var Pool=require('pg').Pool;
-app.use(morgan('combined'));
-app.use(bodyParser.json());
-
- 
+var bodyParser=require('body-parser');
 var config = {
     user:'deepa042008',
     database:'deepa042008',
@@ -17,6 +12,13 @@ var config = {
     port:5432,
     password:process.env.DB_PASSWORD
     };
+
+var app = express();
+
+app.use(morgan('combined'));
+app.use(bodyParser.json());
+
+ 
 
 var pool= new Pool(config);
 
