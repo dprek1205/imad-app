@@ -29,9 +29,9 @@ console.log(username+":"+password);
 
 //request.open('GET','http://deepa042008.imad.hasura-app.io/submit-name?name='+name,true);
 request.open('POST','http://deepa042008.imad.hasura-app.io/login',true);
-console.log('status afrer post'+request.status);
+
 request.setRequestHeader('Content-Type', 'application/json');
-console.log('status afrer post'+request.status);
+
 //request.send(JSON.stringify({username: username, password: password}));
 var to_send = {username: 'username', password: 'password'};
 request.send(JSON.stringify(to_send));
