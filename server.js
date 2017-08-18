@@ -178,7 +178,7 @@ app.post('/create-user',function(req,res) {
 
 //fetches the user entered username,password & checks if its correct & present in db user table
 app.post('/login',function(req,res){
-    var username=req.body.username;
+    var username = req.body.username;
     var password=req.body.password;
    // yours alert('in server post'+username+password);
   // yours  alert('SELECT * FROM "user" WHERE username = $1',[username]);
@@ -196,23 +196,28 @@ app.post('/login',function(req,res){
           else 
           {
            // yours   console.log('before dbstring'+result.rows[0].password);
+           alert('1');
               var dbString = result.rows[0].password;
               var salt = dbString.spilt('$')[2];
+                alert('2');
               
               //hash the user entered password after adding SALT & check this with what was stored in table
             // yours  console.log('before calling hash fn'+salt);
               
 // yours              var hashedString=hash(password,salt);
               var hashedPassword = hash(password,salt);
+              
+                alert('3');
               //console.log('before comparing'+hashedString+":"+dbString);
               
               // yours if (hashedString === dbString){
               if (hashedPassword === dbString){
-         
+           alert('4');
                  res.send('credentials are corrrect');
               }
               else 
               {
+                    alert('5');
                   res.send(403).send('2 username/password invalid');
               }
           }   
