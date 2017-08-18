@@ -198,6 +198,8 @@ app.post('/login',function(req,res){
           {
            // yours   console.log('before dbstring'+result.rows[0].password);
         
+          console.log('before dbstring');
+        
               var dbString = result.rows[0].password;
               var salt = dbString.spilt('$')[2];
         
