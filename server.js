@@ -201,7 +201,7 @@ app.post('/login',function(req,res){
           console.log('before dbstring');
         
               var dbString = result.rows[0].password;
-              var salt = dbString.spilt('$')[2];
+              var salt = dbString.split('$')[2];
         
               
               //hash the user entered password after adding SALT & check this with what was stored in table
