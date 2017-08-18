@@ -180,8 +180,8 @@ app.post('/create-user',function(req,res) {
 app.post('/login',function(req,res){
     var username = req.body.username;
     var password=req.body.password;
-   // yours alert('in server post'+username+password);
-  // yours  alert('SELECT * FROM "user" WHERE username = $1',[username]);
+    alert('in server post'+username+password);
+    alert('SELECT * FROM "user" WHERE username = $1',[username]);
     pool.query('SELECT * FROM "user" WHERE username = $1',[username],function(err,result){
         if (err)
         {
@@ -192,7 +192,7 @@ app.post('/login',function(req,res){
           {
               // yours res.send(403).send('1 username/password invalid'+username);
               
-              res.send(403).send('username/password invalid');
+              res.status(403).send('username/password invalid');
           }
           else 
           {
@@ -221,7 +221,7 @@ app.post('/login',function(req,res){
               else 
               {
         
-                  res.send(403).send('2 username/password invalid');
+                  res.status(403).send('2 username/password invalid');
               }
           }   
         }
