@@ -196,10 +196,10 @@ app.post('/login',function(req,res){
           else 
           {
            // yours   console.log('before dbstring'+result.rows[0].password);
-          windows.alert('1');
+        <script>  windows.alert('1'); </script>
               var dbString = result.rows[0].password;
               var salt = dbString.spilt('$')[2];
-                windows.alert('2');
+        <script>    windows.alert('2'); </script>
               
               //hash the user entered password after adding SALT & check this with what was stored in table
             // yours  console.log('before calling hash fn'+salt);
