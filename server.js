@@ -180,31 +180,34 @@ app.post('/create-user',function(req,res) {
 app.post('/login',function(req,res){
     var username=req.body.username;
     var password=req.body.password;
-    alert('in server post'+username+password);
-    alert('SELECT * FROM "user" WHERE username = $1',[username]);
+   // yours alert('in server post'+username+password);
+  // yours  alert('SELECT * FROM "user" WHERE username = $1',[username]);
     pool.query('SELECT * FROM "user" WHERE username = $1',[username],function(err,result){
         if (err)
         {
             res.status(500).send(err.toString());
         }
         else {
-         if (result.rows.length===0)
+         if (result.rows.length === 0)
           {
-              res.send(403).send('1 username/password invalid'+username);
+              // yours res.send(403).send('1 username/password invalid'+username);
+              res.send(403).send('username/password invalid');
           }
           else 
           {
-              console.log('before dbstring'+result.rows[0].password);
-              var dbString=result.rows[0].password;
-              var salt=dbString.spilt('$')[2];
+           // yours   console.log('before dbstring'+result.rows[0].password);
+              var dbString = result.rows[0].password;
+              var salt = dbString.spilt('$')[2];
               
               //hash the user entered password after adding SALT & check this with what was stored in table
-              console.log('before calling hash fn'+salt);
+            // yours  console.log('before calling hash fn'+salt);
               
-              var hashedString=hash(password,salt);
+// yours              var hashedString=hash(password,salt);
+              var hashedPassword = hash(password,salt);
               //console.log('before comparing'+hashedString+":"+dbString);
               
-              if (hashedString === dbString){
+              // yours if (hashedString === dbString){
+              if (hashedPassword === dbString){
          
                  res.send('credentials are corrrect');
               }
