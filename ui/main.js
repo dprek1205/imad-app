@@ -117,3 +117,35 @@ $('#?').click(function(){
     request.open('GET','http://deepa042008.imad.hasura-app.io/articles',name,true);
     
 });
+
+//submit comments
+submit.onclick=function(){
+submit.value=='submitting';
+
+var  request=new XMLHttpRequest();    
+    request.onreadystatechange=function(){
+        if (request.readyState === XMLHttpRequest.DONE) {
+            if (request.status === 200) {
+                var names=request.responseText;
+                names=JSON.parse(names);
+                var list='';
+                for (var j=0;j<names.length;j++){
+                    list='<li>'+name[j]+'</li>';
+                }
+                var li=docment.getElementById('list_ele');
+                 li.innerHTML=list;
+            }
+            else {
+                alert('Unable to access server '+request.status.toString());
+            }
+            
+                
+        }
+    };
+ 
+var comments=document.getElementById('comment').value;
+var title=document.getElementById('title').value;
+request.open('POST','http://deepa042008.imad.hasura-app.io/submit',true);
+request.setRequestHeader('Content-Type', 'application/json');
+request.send(JSON.stringify({title: title, comment: comment}));
+};
