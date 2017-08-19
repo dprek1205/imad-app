@@ -9,17 +9,23 @@ loginb.value=='Logging';
 var  request=new XMLHttpRequest();    
     request.onreadystatechange=function(){
         if (request.readyState === XMLHttpRequest.DONE) {
-            if (request.status === 200) {
-                console.log('user logged in');
+            if (request.status === 201) {
+                alert(username.value  + 'already logged in');
+                loginb.value='Logout';
+                registerb.enabled=false;
+
+               }
+               else if (request.status === 200) {
                 alert(username.value+'logged in successfully');
                 loginb.value='Logout';
                 registerb.enabled=false;
+
             }
             else if (request.status === 403){
                 alert('username/password incorrect 1 ');
             }
             else if (request.status === 500){
-                alert('Unable to access server or duplicate');
+                alert('Unable to access server 500');
         }
         }
     };
@@ -55,7 +61,7 @@ var  request=new XMLHttpRequest();
                 alert('username/password incorrect 1 ');
             }
             else if (request.status === 500){
-                alert('something went wrong in server');
+                alert('Unable to connect to Server or duplicate id 500');
         }
         }
     };
