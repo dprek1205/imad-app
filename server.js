@@ -30,18 +30,10 @@ app.use(session({
 
 var pool= new Pool(config);
 
-
 app.get('/articles/:articleName',function(req,res){
     //alert('in end url get');
     //make req
     //create a response
-    if (req.session && req.session.auth && req.session.auth.userId) {
-        html_ed='<p> Submit a comment<input type="text" id="Comment" style="width=300px"/> <input type="submit" id="Submit" /></p>';
-     //   <li id="cmt_li"></li>
-        res.send(create_ed_doc(articleData,html_ed,cmt_ed));
-        
-    }
-    else {    
     //pool.query("select * from article where title='"+req.params.articleName+"'",function(err,result){
     pool.query("select * from article where title=$1",[req.params.articleName],function(err,result){
         if (err){
@@ -57,8 +49,9 @@ app.get('/articles/:articleName',function(req,res){
                  }
         }
         });
-    }
+    
 });
+
 
 //takes a document obj
 function createart (doc) {
@@ -246,6 +239,7 @@ function hash(input,salt){
    //  return hashed.toString('hex');
      return ["pbkdf","10000",salt,hashed.toString('hex')].join("$");
 }
+
 //create password hassing end point.takes i/p as part of url & returns a string that represents the manner password will be stored
 app.get('/hash/:input',function(req,res){
     var salt='this-is-a-random-string';
@@ -302,7 +296,6 @@ app.get('/ui/style.css', function (req, res) {
 app.get('/ui/madi.png', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'madi.png'));
 });
-
 
 // Do not change port, otherwise your app won't run on IMAD servers
 // Use 8080 only for local development if you already have apache running on 80
