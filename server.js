@@ -5,6 +5,7 @@ var path = require('path');
 var crypto=require('crypto');
 var Pool=require('pg').Pool;
 var bodyParser=require('body-parser');
+//USING EXPRESS session library. everytome the server.js is restarted session object dies
 var session=require('express-session');
 
 var config = {
@@ -19,8 +20,10 @@ var app = express();
 
 app.use(morgan('combined'));
 app.use(bodyParser.json());
+//app to use the session libr, 2 config to be given: value to encrypt with, life of the cookie
 app.use(session({
     secret:'someRandomSecretValue',
+    //60 sec ;60 min =1 hr  ;24 - 1 day; 30 - no of days ; 1 month life
     cookie:{maxAge:1000*60*60*24*30}
 }));
  
