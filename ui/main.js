@@ -112,3 +112,8 @@ request.send(JSON.stringify({username: username, password: password}));
 });
 
 $('#?').click(function(){
+    var  request=new XMLHttpRequest();    
+    var name='?';
+    request.open('GET','http://deepa042008.imad.hasura-app.io/articles',name,true);
+    
+});
