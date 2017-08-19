@@ -38,7 +38,7 @@ app.get('/articles/:articleName',function(req,res){
             res.status(500).send(err.toString());
         }
          else {   
-        html_ed='<p> Submit a comment<input type="text" id="Comment" style="width=300px"/> <input type="submit" id="submit" />';
+        html_ed='<p> Submit a comment<input type="text" id="comment" style="width=300px"/> <input type="submit" id="submit" />';
         pool.query("select comment from comment , article where comments.article_id=comment.article_id and article.title=$1",[req.params.articleName],function(err,result){
         
         if (err ||  (result.rows.length === 0)) {
@@ -92,7 +92,7 @@ function createart (doc) {
     var doctemp=`
     <html>
     <head>
-    <title>
+    <title id="title">
         ${title}
     </title>
     <meta name="viewport" content="width-device-width,inital-scale-1"/>
@@ -209,12 +209,7 @@ app.post('/login',function(req,res){
             // yours  console.log('before calling hash fn'+salt);
         
               var hashedPassword = hash(password,salt);
-              
-        
-              
-              
-        
-              if (hashedPassword === dbString){
+               if (hashedPassword === dbString){
 //set the session value before sending the response.The session libr creates a session object for the request
 //user id table. auth is key in session object. 
                  if (req.session && req.session.auth && req.session.auth.userId) {
@@ -294,6 +289,32 @@ res.send(JSON.stringify(names));
   articleName=req.params.articleName;
  res.send(createart(articles[articleName]));
 });
+// insert comments
+
+app.post('/submit',function(req,res) {
+    var comments=req.body.comment;
+    var title=req.body.title;
+    
+pool.query('select article_id from article where title=$1',title,function(err,result){
+    if (err)
+       var title_id='';
+    else
+       var title_id = result.rows[0].title_id;   
+});
+
+ pool.query('INSERT INTO "comment" (article_id,comment,userid) values($1,$2,$3)',[article_id,comments,req.session.auth.userId],function(err,result){
+        if (err){
+            res.status(500).send(err.toStritleing());
+        }
+        else {
+              res.send('comment created successfully');
+              names.push(name);
+              res.send(JSON.stringify(names));
+            }
+      
+  });
+    
+});
 
 /*
 app.get('/article-two', function (req, res) {
@@ -307,10 +328,13 @@ app.get('/article-three', function (req, res) {
   res.send(createart(articlethree));
 });
 
+
 app.get('/ui/main.js', function(req,res){
     res.sendFile(path.join(_dirname, 'ui', 'main.js'));
     
 });
+
+
 */
 app.get('/ui/main.js', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'main.js'));
