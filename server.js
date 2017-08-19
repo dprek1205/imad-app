@@ -96,7 +96,7 @@ app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'index.html'));
 });
 
-app.post('/create-user',function(req,res) {
+app.post('/register',function(req,res) {
     var username=req.body.username;
     var password=req.body.password;
     var salt=crypto.randomBytes(128).toString('hex');
@@ -132,27 +132,27 @@ app.post('/login',function(req,res){
           else 
           {
 
-        
-          console.log('before dbstring');
-        
               var dbString = result.rows[0].password;
               var salt = dbString.split('$')[2];
-        
-              
+    
               //hash the user entered password after adding SALT & check this with what was stored in table
             // yours  console.log('before calling hash fn'+salt);
-              
-// yours              var hashedString=hash(password,salt);
+        
               var hashedPassword = hash(password,salt);
               
         
-              //console.log('before comparing'+hashedString+":"+dbString);
               
-              // yours if (hashedString === dbString){
+              
+        
               if (hashedPassword === dbString){
 //set the session value before sending the response.The session libr creates a session object for the request
 //user id table. auth is key in session object. 
+                 if (req.session && req.session.auth && req.session.auth.userId) {
+                     res.status(201).send('ALREADY LOGGED IN');
+                 }
+                 else{
                  req.session.auth={userId:result.rows[0].id};
+                 }
                  //session middleware is setting a cookie with a randomly generated cookie. maps session id to an object with value which in turn contains userId object. 
                  //express session libr ensures that the session token.userid combination for the domain is saved as soon as the response is sent
                  
@@ -170,6 +170,7 @@ app.post('/login',function(req,res){
 });
 
 //create another end point  to check the session persistence
+
 app.get('/check-login',function(req,res){
 if (req.session && req.session.auth && req.session.auth.userId) {
     res.send('You are logged in' + req.session.auth.userId.toString());
@@ -177,6 +178,7 @@ if (req.session && req.session.auth && req.session.auth.userId) {
 else{
     res.send('You are not logged in');
 }
+
 
 });
 
