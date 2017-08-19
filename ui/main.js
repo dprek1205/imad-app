@@ -4,44 +4,15 @@ var loginb=document.getElementById("loginb");
 var registerb=document.getElementById("registerb");
 
 loginb.onclick=function(){
-loginb.value=='Logging';
+
 
 var  request=new XMLHttpRequest();    
-    request.onreadystatechange=function(){
-        if (request.readyState === XMLHttpRequest.DONE) {
-            if (request.status === 201) {
-                alert(username.value  + 'already logged in');
-                loginb.value='Logout';
-                registerb.enabled=false;
-
-               }
-               else if (request.status === 200) {
-                alert(username.value+'logged in successfully');
-                loginb.value='Logout';
-                registerb.enabled=false;
-
-            }
-            else if (request.status === 403){
-                alert('username/password incorrect 1 ');
-            }
-            else if (request.status === 500){
-                alert('Unable to access server 500');
-        }
-        }
-    };
-
-//var nameinp=document.getElementById("name");
-//var name=nameinp.value;
-var username=document.getElementById('username').value;
-var password=document.getElementById('password').value;
-console.log(username+":"+password);
-
-request.open('POST','http://deepa042008.imad.hasura-app.io/login',true);
-
-request.setRequestHeader('Content-Type', 'application/json');
-
-request.send(JSON.stringify({username: username, password: password}));
-
+if (loginb.value === 'Login') {
+  login_fn() ;
+}
+ else {
+  logout_fn();
+}
 };
 
 registerb.onclick=function(){
@@ -51,7 +22,7 @@ var  request=new XMLHttpRequest();
     request.onreadystatechange=function(){
         if (request.readyState === XMLHttpRequest.DONE) {
             if (request.status === 200) {
-                console.log('user '+username.value +'has been registered');
+                console.log('user '+username +'has been registered');
                 alert('logged in successfully');
                 registerb.value=='Registered';
                 username.style.display='block';
@@ -68,7 +39,7 @@ var  request=new XMLHttpRequest();
  
 var username=document.getElementById('username').value;
 var password=document.getElementById('password').value;
-console.log(username+":"+password);
+console.log('in login '+username+':'+password);
 
 request.open('POST','http://deepa042008.imad.hasura-app.io/register',true);
 
@@ -77,3 +48,67 @@ request.setRequestHeader('Content-Type', 'application/json');
 request.send(JSON.stringify({username: username, password: password}));
 
 };
+
+function fn_login() {
+
+      loginb.value=='Logging';
+       request.onreadystatechange=function(){
+        if (request.readyState === XMLHttpRequest.DONE) {
+            if (request.status === 201) {
+                alert(username  + 'already logged in');
+                loginb.value='Logout';
+                registerb.enabled=false;
+
+               }
+               else if (request.status === 200) {
+                alert(username +'logged in successfully');
+                loginb.value='Logout';
+                registerb.enabled=false;
+
+            }
+            else if (request.status === 403){
+                alert('username/password incorrect 1 ');
+            }
+            else if (request.status === 500){
+                alert('Unable to access server 500');
+        }
+        }
+    };
+
+var username=document.getElementById('username').value;
+var password=document.getElementById('password').value;
+console.log('in register '+username+':'+password);
+
+request.open('POST','http://deepa042008.imad.hasura-app.io/login',true);
+
+request.setRequestHeader('Content-Type', 'application/json');
+
+request.send(JSON.stringify({username: username, password: password}));
+}
+
+function fn_logout() {
+
+       request.onreadystatechange=function(){
+        if (request.readyState === XMLHttpRequest.DONE) {
+            if (request.status === 200) {
+                alert(username+ 'logged out');
+                  loginb.value=='Login';
+                registerb.enabled=true;
+
+               }
+            else {
+                alert('Unable to access server 500');
+        }
+        }
+    };
+
+var username=document.getElementById('username').value;
+var password=document.getElementById('password').value;
+console.log('in logout '+ username+":"+password);
+
+request.open('POST','http://deepa042008.imad.hasura-app.io/logout',true);
+
+request.setRequestHeader('Content-Type', 'application/json');
+
+request.send(JSON.stringify({username: username, password: password}));
+}
