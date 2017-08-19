@@ -38,7 +38,7 @@ app.get('/articles/:articleName',function(req,res){
             res.status(500).send(err.toString());
         }
          else {   
-        html_ed='<p> Submit a comment<input type="text" id="Comment" style="width=300px"/> <input type="submit" id="Submit" />';
+        html_ed='<p> Submit a comment<input type="text" id="Comment" style="width=300px"/> <input type="submit" id="submit" />';
         pool.query("select comment from comment , article where comments.article_id=comment.article_id and article.title=$1",[req.params.articleName],function(err,result){
         
         if (err ||  (result.rows.length === 0)) {
