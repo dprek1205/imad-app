@@ -6,19 +6,50 @@ var registerb=document.getElementById("registerb");
 //ONCLICK FOR LOGIN BUTTON
 
 loginb.onclick=function(){
-
-
+    
+var id1=document.getElementById('id1');
 var  request=new XMLHttpRequest();    
-if (loginb.value === 'Login') {
-  login_fn() ;
-}
- else {
-  logout_fn();
-}
+     loginb.value=='Logging';
+       request.onreadystatechange=function(){
+        if (request.readyState === XMLHttpRequest.DONE) {
+            if (request.status === 201) {
+                alert(username  + 'already logged in');
+                loginb.value='Logout';
+                document.getElementById('registerb').setAttribute('disabled',true);
+                
+                //  username.style.display='block';
+                //password.style.display='block';
+                //username.innerHTML='Hi '+username.value;
+                id1.innerHTML='Hi' +username+'<p> Logout <a href="/logout">Logout</a> </p>';
+            }
+
+               else if (request.status === 200) {
+                alert(username +'logged in successfully');
+                loginb.value='Logout';
+                document.getElementById('registerb').setAttribute('disabled',true);
+                id1.innerHTML='<div>Hi' +username+'<p> Logout <a href="/logout">Logout</a> </p></div>';
+            }
+            else if (request.status === 403){
+                alert('username/password incorrect 1 ');
+            }
+            else if (request.status === 500){
+                alert('Unable to access server 500');
+        }
+        }
+        };
+var username=document.getElementById('username').value;
+var password=document.getElementById('password').value;
+console.log('in register '+username+':'+password);
+
+request.open('POST','http://deepa042008.imad.hasura-app.io/login',true);
+
+request.setRequestHeader('Content-Type', 'application/json');
+
+request.send(JSON.stringify({username: username, password: password}));
+    
 };
 
-//ONCLICK FOR REGISTER BUTTON
-
+//ONCLICK FOR REGISTER BUTTregisterb.onclick=function(){
 registerb.onclick=function(){
 registerb.value=='Registering';
 
@@ -29,8 +60,6 @@ var  request=new XMLHttpRequest();
                 console.log('user '+username +'has been registered');
                 alert('logged in successfully');
                 registerb.value=='Registered';
-                username.style.display='block';
-                password.style.display='block';
             }
             else if (request.status === 403){
                 alert('username/password incorrect 1 ');
@@ -53,61 +82,21 @@ request.send(JSON.stringify({username: username, password: password}));
 
 };
 
-function fn_login() {
-
-      loginb.value=='Logging';
-       request.onreadystatechange=function(){
-        if (request.readyState === XMLHttpRequest.DONE) {
-            if (request.status === 201) {
-                alert(username  + 'already logged in');
-                loginb.value='Logout';
-                registerb.enabled=false;
-                username.style.display='block';
-                password.style.display='block';
-                username.innerHTML='Hi '+username.value;
-            }
-
-               else if (request.status === 200) {
-                alert(username +'logged in successfully');
-                loginb.value='Logout';
-                registerb.enabled=false;
-                username.style.display='block';
-                password.style.display='block';
-                username.innerHtmlElement='Hi '+username.value;
-                
-            }
-            else if (request.status === 403){
-                alert('username/password incorrect 1 ');
-            }
-            else if (request.status === 500){
-                alert('Unable to access server 500');
-        }
-        }
-        };
-var username=document.getElementById('username').value;
-var password=document.getElementById('password').value;
-console.log('in register '+username+':'+password);
-
-request.open('POST','http://deepa042008.imad.hasura-app.io/login',true);
-
-request.setRequestHeader('Content-Type', 'application/json');
-
-request.send(JSON.stringify({username: username, password: password}));
-}
-
-function fn_logout() {
-
+$('#logout').click(function(){
+    var id1=document.getElementById('id1');
        request.onreadystatechange=function(){
         if (request.readyState === XMLHttpRequest.DONE) {
             if (request.status === 200) {
                 alert(username+ 'logged out');
+                
+                  id1='<input type="text" id="username" placeholder="username"/> <input type="password" id="password"/>';
                   loginb.value=='Login';
                  registerb.enabled=true;
                  res.send('<html> <body> Logged out <a href="/">Back to Home</a> </body></html>');
                }
             else {
                 alert('Unable to access server 500');
-        }
+                 }
         }
     };
 
@@ -120,4 +109,5 @@ request.open('POST','http://deepa042008.imad.hasura-app.io/logout',true);
 request.setRequestHeader('Content-Type', 'application/json');
 
 request.send(JSON.stringify({username: username, password: password}));
-}
+});
+
