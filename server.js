@@ -31,6 +31,14 @@ app.use(session({
 var pool= new Pool(config);
 
 app.get('/articles/:articleName',function(req,res){
+    if (req.session && req.session.auth && req.session.auth.userId) {
+        
+        html_ed=`<p> Submit a comment<input type="text" id="Comment" style="width=300px"/> <input type="submit" id="Submit" /></p><li id="cmt_li"></li>`;
+        res.send(create_ed_doc(articleData,html_ed));
+        
+    }
+    else {    
+    
     //alert('in end url get');
     //make req
     //create a response
@@ -49,7 +57,7 @@ app.get('/articles/:articleName',function(req,res){
                  }
         }
         });
-    
+    }
 });
 
 
@@ -92,13 +100,12 @@ function createart (doc) {
     return doctemp;
 }
 
-function create_ed_doc (doc,html_ed,cmt_ed) {
+function create_ed_doc (doc,html_ed) {
     var title=doc.title;
     var heading=doc.heading;
     var date=doc.date;
     var content=doc.content;
     var html_var=html_ed;
-    var cmt_var=cmt_ed.cmt_var;
     
     var doctemp=`
     <html>
@@ -126,7 +133,6 @@ function create_ed_doc (doc,html_ed,cmt_ed) {
     </div>
     <h2>Comments</h2>
      ${hmtl_var}
-     ${cmt_var}
     </div>
     </div>
 </body>
