@@ -3,6 +3,8 @@ console.log('Loaded!');
 var loginb=document.getElementById("loginb");
 var registerb=document.getElementById("registerb");
 
+//ONCLICK FOR LOGIN BUTTON
+
 loginb.onclick=function(){
 
 
@@ -14,6 +16,8 @@ if (loginb.value === 'Login') {
   logout_fn();
 }
 };
+
+//ONCLICK FOR REGISTER BUTTON
 
 registerb.onclick=function(){
 registerb.value=='Registering';
@@ -58,13 +62,19 @@ function fn_login() {
                 alert(username  + 'already logged in');
                 loginb.value='Logout';
                 registerb.enabled=false;
+                username.style.display='block';
+                password.style.display='block';
+                username.innerHtmlElement='Hi '+username.value;
+            }
 
-               }
                else if (request.status === 200) {
                 alert(username +'logged in successfully');
                 loginb.value='Logout';
                 registerb.enabled=false;
-
+                username.style.display='block';
+                password.style.display='block';
+                username.innerHtmlElement='Hi '+username.value;
+                
             }
             else if (request.status === 403){
                 alert('username/password incorrect 1 ');
@@ -73,8 +83,7 @@ function fn_login() {
                 alert('Unable to access server 500');
         }
         }
-    };
-
+        };
 var username=document.getElementById('username').value;
 var password=document.getElementById('password').value;
 console.log('in register '+username+':'+password);
