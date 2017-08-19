@@ -102,8 +102,8 @@ function fn_logout() {
             if (request.status === 200) {
                 alert(username+ 'logged out');
                   loginb.value=='Login';
-                registerb.enabled=true;
-
+                 registerb.enabled=true;
+                 res.send('<html> <body> Logged out <a href="/">Back to Home</a> </body></html>');
                }
             else {
                 alert('Unable to access server 500');
