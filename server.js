@@ -37,7 +37,7 @@ app.get('/articles/:articleName',function(req,res){
     //create a response
     if (req.session && req.session.auth && req.session.auth.userId) {
         html_ed='<p> Submit a comment<input type="text" id="Comment" style="width=300px"/> <input type="submit" id="Submit" /></p>';
-        <li id="cmt_li"></li>
+     //   <li id="cmt_li"></li>
         res.send(create_ed_doc(articleData,html_ed,cmt_ed));
         
     }
