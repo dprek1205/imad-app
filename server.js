@@ -31,11 +31,32 @@ app.use(session({
 var pool= new Pool(config);
 
 app.get('/articles/:articleName',function(req,res){
+    
     if (req.session && req.session.auth && req.session.auth.userId) {
+        pool.query("select * from article where title=$1",[req.params.articleName],function(err,result){
+        if (err){
+            res.status(500).send(err.toString());
+        }
+         else {   
+        html_ed='<p> Submit a comment<input type="text" id="Comment" style="width=300px"/> <input type="submit" id="Submit" />';
+        pool.query("select comment from comment , article where comments.article_id=comment.article_id and article.title=$1",[req.params.articleName],function(err,result){
         
-        html_ed=`<p> Submit a comment<input type="text" id="Comment" style="width=300px"/> <input type="submit" id="Submit" /></p><li id="cmt_li"></li>`;
-        res.send(create_ed_doc(articleData,html_ed));
-        
+        if (err ||  (result.rows.length === 0)) {
+            res.send(create_ed_doc(articleData,html_ed));
+        }
+        else 
+        {
+         var list_ele='';
+         for (var i=0;i< result.rows.length;i++)
+         {
+            list_ele='<li>'+result.rows[i]+'</li>';
+         }
+         html_ed='</p><ui id='+list_ele+'</ui>';
+         res.send(create_ed_doc(articleData,html_ed));
+        }
+    });
+    }
+        });
     }
     else {    
     
