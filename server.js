@@ -248,6 +248,11 @@ else{
 
 });
 
+app.get('/logout',function(req,res){
+  delete req.session.auth;  
+  res.send('logged out');
+});
+    
 function hash(input,salt){
     var hashed= crypto.pbkdf2Sync(input,salt,10000,512,'sha512');
     //crypto.pbkdf2('secret', 'salt', 100000, 512, 'sha512', (err, derivedKey)
