@@ -64,7 +64,7 @@ function fn_login() {
                 registerb.enabled=false;
                 username.style.display='block';
                 password.style.display='block';
-                username.innerHtmlElement='Hi '+username.value;
+                username.innerHTML='Hi '+username.value;
             }
 
                else if (request.status === 200) {
