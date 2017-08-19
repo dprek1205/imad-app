@@ -35,7 +35,13 @@ app.get('/articles/:articleName',function(req,res){
     //alert('in end url get');
     //make req
     //create a response
-
+    if (req.session && req.session.auth && req.session.auth.userId) {
+        html_ed='<p> Submit a comment<input type="text" id="Comment" style="width=300px"/> <input type="submit" id="Submit" /></p>';
+        <li id="cmt_li"></li>
+        res.send(create_ed_doc(articleData,html_ed,cmt_ed));
+        
+    }
+    else {    
     //pool.query("select * from article where title='"+req.params.articleName+"'",function(err,result){
     pool.query("select * from article where title=$1",[req.params.articleName],function(err,result){
         if (err){
@@ -51,7 +57,7 @@ app.get('/articles/:articleName',function(req,res){
                  }
         }
         });
-    
+    }
 });
 
 //takes a document obj
@@ -85,12 +91,57 @@ function createart (doc) {
     <div>
     ${content}
     </div>
+    <h2>Comments</h2>
     </div>
 </body>
 </html>`;
 //returns html string
     return doctemp;
 }
+
+function create_ed_doc (doc,html_ed,cmt_ed) {
+    var title=doc.title;
+    var heading=doc.heading;
+    var date=doc.date;
+    var content=doc.content;
+    var html_var=html_ed;
+    var cmt_var=cmt_ed.cmt_var;
+    
+    var doctemp=`
+    <html>
+    <head>
+    <title>
+        ${title}
+    </title>
+    <meta name="viewport" content="width-device-width,inital-scale-1"/>
+    <link href="ui/style.css" rel="stylesheet"/>
+    </head>
+<body>
+    <div class="container">
+    <div>
+        <a href="/">Home</a>
+        </div>
+    <hr/>
+    <h3>
+        ${heading}
+    </h3>
+    <div>
+        ${date.toDateString()}
+    </div>
+    <div>
+    ${content}
+    </div>
+    <h2>Comments</h2>
+     ${hmtl_var}
+     ${cmt_var}
+    </div>
+    </div>
+</body>
+</html>`;
+//returns html string
+    return doctemp;
+}
+
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'index.html'));
 });
