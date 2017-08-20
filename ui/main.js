@@ -52,15 +52,19 @@ request.send(JSON.stringify({username: username, password: password}));
 //ONCLICK FOR REGISTER BUTTregisterb.onclick=function(){
 registerb.onclick=function(){
 // yours registerb.value=='Registering';
-registerb.value='Register';
+// registerb.value='Register';
 
 
 var  request=new XMLHttpRequest();    
     request.onreadystatechange=function(){
         if (request.readyState === XMLHttpRequest.DONE) {
             if (request.status === 200) {
+                // added this line
+                document.getElementById('registerb').setAttribute('disabled',true);
+                // end
                 console.log('user '+username +'has been registered');
-                alert('logged in successfully');
+// yours                alert('logged in successfully');
+ alert('Registered successfully');
                 registerb.value=='Registered';
             }
             else if (request.status === 403){
