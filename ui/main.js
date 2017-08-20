@@ -51,7 +51,9 @@ request.send(JSON.stringify({username: username, password: password}));
 
 //ONCLICK FOR REGISTER BUTTregisterb.onclick=function(){
 registerb.onclick=function(){
-registerb.value=='Registering';
+// yours registerb.value=='Registering';
+registerb.value='Register';
+
 
 var  request=new XMLHttpRequest();    
     request.onreadystatechange=function(){
