@@ -117,12 +117,7 @@ request.setRequestHeader('Content-Type', 'application/json');
 request.send(JSON.stringify({username: username, password: password}));
 });
 
-$('#?').click(function(){
-    var  request=new XMLHttpRequest();    
-    var name='?';
-    request.open('GET','http://deepa042008.imad.hasura-app.io/articles',name,true);
-    
-});
+
 
 //submit comments
 submit.onclick=function(){
@@ -155,3 +150,11 @@ request.open('POST','http://deepa042008.imad.hasura-app.io/submit',true);
 request.setRequestHeader('Content-Type', 'application/json');
 request.send(JSON.stringify({title: title, comment: comment}));
 };
+
+/*$('#?').click(function(){
+    var  request=new XMLHttpRequest();    
+    var name='?';
+    request.open('GET','http://deepa042008.imad.hasura-app.io/articles',name,true);
+    
+});
+*/
