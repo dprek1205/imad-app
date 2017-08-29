@@ -7,8 +7,8 @@ var bodyParser = require('body-parser');
 var session = require('express-session');
 
 var config = {
-    user: 'coco98',
-    database: 'coco98',
+    user: 'deepa042008',
+    database: 'deepa042008',
     host: 'db.imad.hasura-app.io',
     port: '5432',
     password: process.env.DB_PASSWORD
@@ -124,7 +124,8 @@ app.post('/login', function (req, res) {
                 // internally, on the server side, it maps the session id to an object
                 // { auth: {userId }}
                 
-                res.send('credentials correct!');
+                //res.send('credentials correct!');
+                res.send('You have successfully logged in')
                 
               } else {
                 res.status(403).send('username/password is invalid');
