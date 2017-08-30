@@ -1,6 +1,6 @@
 // Eg: coco98.imad.hasura-app.io/articles/article-one will result in article-one
 var currentArticleTitle = window.location.pathname.split('/')[2];
-console.log(currentArticleTitle);
+
 
 function loadCommentForm () {
     var commentFormHtml = `
@@ -36,6 +36,7 @@ function loadCommentForm () {
         // Make the request
         var comment = document.getElementById('comment_text').value;
         request.open('POST', '/submit-comment/' + currentArticleTitle, true);
+        console.log('111111');
         request.setRequestHeader('Content-Type', 'application/json');
         request.send(JSON.stringify({comment: comment}));  
         submit.value = 'Submitting...';
