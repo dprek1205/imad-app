@@ -1,160 +1,139 @@
-console.log('Loaded!');
-
-var loginb=document.getElementById("loginb");
-var registerb=document.getElementById("registerb");
-
-//ONCLICK FOR LOGIN BUTTON
-
-loginb.onclick=function(){
+function loadLoginForm () {
+     
+    var loginHtml = `
+        <h3>Login/Register to unlock awesome features</h3>
+        <input type="text" id="username" placeholder="username" />
+        <input type="password" id="password" />
+        <br/><br/>
+        <input type="submit" id="login_btn" value="Login" />
+        <input type="submit" id="register_btn" value="Register" />
+        `;
+    document.getElementById('login_area').innerHTML = loginHtml;
     
-var id1=document.getElementById('id1');
-var  request=new XMLHttpRequest();    
-     loginb.value=='Logging';
-       request.onreadystatechange=function(){
-        if (request.readyState === XMLHttpRequest.DONE) {
-            if (request.status === 201) {
-                alert(username  + 'already logged in');
-                loginb.value='Logout';
-                document.getElementById('registerb').setAttribute('disabled',true);
-                
-                //  username.style.display='block';
-                //password.style.display='block';
-                //username.innerHTML='Hi '+username.value;
-                id1.innerHTML='Hi' +username+'<p> Logout <a href="/logout">Logout</a> </p>';
-            }
-
-               else if (request.status === 200) {
-                alert(username +'logged in successfully');
-                loginb.value='Logout';
-                document.getElementById('registerb').setAttribute('disabled',true);
-                id1.innerHTML='<div>Hi' +username+'<p> Logout <a href="/logout">Logout</a> </p></div>';
-            }
-            else if (request.status === 403){
-                alert('username/password incorrect 1 ');
-            }
-            else if (request.status === 500){
-                alert('Unable to access server 500');
-        }
-        }
+    // Submit username/password to login
+    var submit = document.getElementById('login_btn');
+    submit.onclick = function () {
+        // Create a request object
+        var request = new XMLHttpRequest();
+        
+        // Capture the response and store it in a variable
+        request.onreadystatechange = function () {
+          if (request.readyState === XMLHttpRequest.DONE) {
+              // Take some action
+              if (request.status === 200) {
+                  submit.value = 'Sucess!';
+              } else if (request.status === 403) {
+                  submit.value = 'Invalid credentials. Try again?';
+              } else if (request.status === 500) {
+                  alert('Something went wrong on the server');
+                  submit.value = 'Login';
+              } else {
+                  alert('Something went wrong on the server');
+                  submit.value = 'Login';
+              }
+              loadLogin();
+          }  
+          // Not done yet
         };
-var username=document.getElementById('username').value;
-var password=document.getElementById('password').value;
-console.log('in register '+username+':'+password);
-
-request.open('POST','http://deepa042008.imad.hasura-app.io/login',true);
-
-request.setRequestHeader('Content-Type', 'application/json');
-
-request.send(JSON.stringify({username: username, password: password}));
+        
+        // Make the request
+        var username = document.getElementById('username').value;
+        var password = document.getElementById('password').value;
+        console.log(username);
+        console.log(password);
+        request.open('POST', '/login', true);
+        request.setRequestHeader('Content-Type', 'application/json');
+        request.send(JSON.stringify({username: username, password: password}));  
+        submit.value = 'Logging in...';
+        
+    };
     
-};
+    var register = document.getElementById('register_btn');
+    register.onclick = function () {
+        // Create a request object
+        var request = new XMLHttpRequest();
+        
+        // Capture the response and store it in a variable
+        request.onreadystatechange = function () {
+          if (request.readyState === XMLHttpRequest.DONE) {
+              // Take some action
+              if (request.status === 200) {
+                  alert('User created successfully');
+                  register.value = 'Registered!';
+              } else {
+                  alert('Could not register the user');
+                  register.value = 'Register';
+              }
+          }
+        };
+        
+        // Make the request
+        var username = document.getElementById('username').value;
+        var password = document.getElementById('password').value;
+        console.log(username);
+        console.log(password);
+        request.open('POST', '/create-user', true);
+        request.setRequestHeader('Content-Type', 'application/json');
+        request.send(JSON.stringify({username: username, password: password}));  
+        register.value = 'Registering...';
+    
+    };
+}
 
-//ONCLICK FOR REGISTER BUTTregisterb.onclick=function(){
-registerb.onclick=function(){
-// yours registerb.value=='Registering';
-// registerb.value='Register';
+function loadLoggedInUser (username) {
+    var loginArea = document.getElementById('login_area');
+    loginArea.innerHTML = `
+        <h3> Hi <i>${username}</i></h3>
+        <a href="/logout">Logout</a>
+    `;
+}
 
-
-var  request=new XMLHttpRequest();    
-    request.onreadystatechange=function(){
+function loadLogin () {
+    // Check if the user is already logged in
+    var request = new XMLHttpRequest();
+    request.onreadystatechange = function () {
         if (request.readyState === XMLHttpRequest.DONE) {
             if (request.status === 200) {
-                // added this line
-                document.getElementById('registerb').setAttribute('disabled',true);
-                // end
-                console.log('user '+username +'has been registered');
-// yours                alert('logged in successfully');
- alert('Registered successfully');
-                registerb.value=='Registered';
+                loadLoggedInUser(this.responseText);
+            } else {
+                loadLoginForm();
             }
-            else if (request.status === 403){
-                alert('username/password incorrect 1 ');
-            }
-            else if (request.status === 500){
-                alert('Unable to connect to Server or duplicate id 500');
-        }
         }
     };
- 
-var username=document.getElementById('username').value;
-var password=document.getElementById('password').value;
-console.log('in login '+username+':'+password);
+    
+    request.open('GET', '/check-login', true);
+    request.send(null);
+}
 
-request.open('POST','http://deepa042008.imad.hasura-app.io/register',true);
-
-request.setRequestHeader('Content-Type', 'application/json');
-
-request.send(JSON.stringify({username: username, password: password}));
-
-};
-
-$('#logout').click(function(){
-    var id1=document.getElementById('id1');
-       request.onreadystatechange=function(){
+function loadArticles () {
+        // Check if the user is already logged in
+    var request = new XMLHttpRequest();
+    request.onreadystatechange = function () {
         if (request.readyState === XMLHttpRequest.DONE) {
+            var articles = document.getElementById('articles');
             if (request.status === 200) {
-                alert(username+ 'logged out');
-                
-                  id1='<input type="text" id="username" placeholder="username"/> <input type="password" id="password"/>';
-                  loginb.value=='Login';
-                 registerb.enabled=true;
-                 res.send('<html> <body> Logged out <a href="/">Back to Home</a> </body></html>');
-               }
-            else {
-                alert('Unable to access server 500');
-                 }
-        }
-    };
-
-var username=document.getElementById('username').value;
-var password=document.getElementById('password').value;
-console.log('in logout '+ username+":"+password);
-
-request.open('POST','http://deepa042008.imad.hasura-app.io/logout',true);
-
-request.setRequestHeader('Content-Type', 'application/json');
-
-request.send(JSON.stringify({username: username, password: password}));
-});
-
-
-
-//submit comments
-submit.onclick=function(){
-submit.value=='submitting';
-
-var  request=new XMLHttpRequest();    
-    request.onreadystatechange=function(){
-        if (request.readyState === XMLHttpRequest.DONE) {
-            if (request.status === 200) {
-                var names=request.responseText;
-                names=JSON.parse(names);
-                var list='';
-                for (var j=0;j<names.length;j++){
-                    list='<li>'+name[j]+'</li>';
+                var content = '<ul>';
+                var articleData = JSON.parse(this.responseText);
+                for (var i=0; i< articleData.length; i++) {
+                    content += `<li>
+                    <a href="/articles/${articleData[i].title}">${articleData[i].heading}</a>
+                    (${articleData[i].date.split('T')[0]})</li>`;
                 }
-                var li=docment.getElementById('list_ele');
-                 li.innerHTML=list;
+                content += "</ul>";
+                articles.innerHTML = content;
+            } else {
+                articles.innerHTML('Oops! Could not load all articles!');
             }
-            else {
-                alert('Unable to access server '+request.status.toString());
-            }
-            
-                
         }
     };
- 
-var comments=document.getElementById('comment').value;
-var title=document.getElementById('title').value;
-request.open('POST','http://deepa042008.imad.hasura-app.io/submit',true);
-request.setRequestHeader('Content-Type', 'application/json');
-request.send(JSON.stringify({title: title, comment: comment}));
-};
-
-/*$('#?').click(function(){
-    var  request=new XMLHttpRequest();    
-    var name='?';
-    request.open('GET','http://deepa042008.imad.hasura-app.io/articles',name,true);
     
-});
-*/
+    request.open('GET', '/get-articles', true);
+    request.send(null);
+}
+
+
+// The first thing to do is to check if the user is logged in!
+loadLogin();
+
+// Now this is something that we could have directly done on the server-side using templating too!
+loadArticles();
