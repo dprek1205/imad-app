@@ -101,7 +101,10 @@ app.post('/create-user', function (req, res) {
           res.status(500).send(msg1);
         
       } else {
-          res.send('User successfully created: ' + username);
+         // original res.send('User successfully created: ' + username);
+         
+         msg1={message:'You have successfully registered!'}
+                 res.send(msg1);
       }
    });
 });
