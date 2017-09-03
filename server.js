@@ -120,7 +120,7 @@ app.post('/create-user', function (req, res) {
    pool.query('INSERT INTO "user" (username, password) VALUES ($1, $2)', [username, dbString], function (err, result) {
       if (err) {
         // original  res.status(500).send(err.toString());
-        msg1={error:'Username already exists or unable to create user'};
+        msg1={error:' unable to create user'};
           res.status(500).send(msg1);
         
       } else {
