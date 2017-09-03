@@ -7,7 +7,7 @@ var Pool = require('pg').Pool;
 var crypto = require('crypto');
 var bodyParser = require('body-parser');
 var session = require('express-session');
-
+var msg={};
 
 var config = {
     user: 'deepa042008',
@@ -108,10 +108,15 @@ app.post('/login', function (req, res) {
    
    pool.query('SELECT * FROM "user" WHERE username = $1', [username], function (err, result) {
       if (err) {
-          res.status(500).send(err.toString());
+          //res.status(500).send(err.toString());
+          msg={error:'Userid/Password is incorrect'+err.toString()}
+          res.send(msg);
       } else {
           if (result.rows.length === 0) {
-              res.status(403).send('username/password is invalid');
+              //res.status(403).send('username/password is invalid');
+              msg={error:'Userid/Password is incorrect'+err.toString()}
+              res.send(msg);
+              
           } else {
               // Match the password
               var dbString = result.rows[0].password;
@@ -124,14 +129,14 @@ app.post('/login', function (req, res) {
                 // set cookie with a session id
                 // internally, on the server side, it maps the session id to an object
                 // { auth: {userId }}
-                var msg = {message: 'You have logged in successfully'};
+                msg = {message: 'You have logged in successfully'};
                 //res.send('credentials correct!');
                 res.send(msg);
                 
               } else {
-                 var msg1 = {error: 'UserName/Password is incorrect'};
+                 msg = {error: 'UserName/Password is incorrect'+err.toString()};
                 //res.status(403).send('username/password is invalid');
-                res.send(msg1);
+                res.send(msg);
               }
           }
       }
