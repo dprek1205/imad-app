@@ -109,12 +109,12 @@ app.post('/login', function (req, res) {
    pool.query('SELECT * FROM "user" WHERE username = $1', [username], function (err, result) {
       if (err) {
           //res.status(500).send(err.toString());
-          msg={error:'Userid/Password is incorrect'+err.toString()}
+          msg={error:'Userid/Password is incorrect'+err.toString()};
           res.send(msg);
       } else {
           if (result.rows.length === 0) {
               //res.status(403).send('username/password is invalid');
-              msg={error:'Userid/Password is incorrect'+err.toString()}
+              msg={error:'Userid/Password is incorrect'+err.toString()};
               res.send(msg);
               
           } else {
