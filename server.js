@@ -112,13 +112,13 @@ app.post('/login', function (req, res) {
       if (err) {
           //res.status(500).send(err.toString());
           msg1={error:'incorrect username or password'};
-          res.send(msg1);
+          res.status(500).send(msg1);
           
       } else {
           if (result.rows.length === 0) {
               //res.status(403).send('username/password is invalid');
               msg1={error:'incorrect username or password'};
-              res.send(msg1);
+              res.staus(403).send(msg1);
           } else {
               // Match the password
               var dbString = result.rows[0].password;
@@ -140,7 +140,7 @@ app.post('/login', function (req, res) {
               } else {
                 //res.status(403).send('username/password is invalid');
                  msg1={error:'incorrect username or password'};
-                 res.send(msg1);
+                 res.status(403).send(msg1);
               }
           }
       }
