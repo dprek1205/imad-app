@@ -7,7 +7,8 @@ var Pool = require('pg').Pool;
 var crypto = require('crypto');
 var bodyParser = require('body-parser');
 var session = require('express-session');
-var msg={};
+
+var msg1={};
 
 var config = {
     user: 'deepa042008',
@@ -102,6 +103,7 @@ app.post('/create-user', function (req, res) {
    });
 });
 
+
 app.post('/login', function (req, res) {
    var username = req.body.username;
    var password = req.body.password;
@@ -109,19 +111,20 @@ app.post('/login', function (req, res) {
    pool.query('SELECT * FROM "user" WHERE username = $1', [username], function (err, result) {
       if (err) {
           //res.status(500).send(err.toString());
-          msg={error:'Userid or Password is incorrect'};
-          res.send(msg);
+          msg1={error:'incorrect username or password'};
+          res.send(msg1);
+          
       } else {
           if (result.rows.length === 0) {
               //res.status(403).send('username/password is invalid');
-              msg={error:'Userid or Password is incorrect'};
-              res.send(msg);
-              
+              msg1={error:'incorrect username or password'};
+              res.send(msg1);
           } else {
               // Match the password
               var dbString = result.rows[0].password;
               var salt = dbString.split('$')[2];
-              var hashedPassword = hash(password, salt); // Creating a hash based on the password submitted and the original salt
+              var hashedPassword = hash(password, salt); 
+              // Creating a hash based on the password submitted and the original salt
               if (hashedPassword === dbString) {
                 
                 // Set the session
@@ -129,19 +132,23 @@ app.post('/login', function (req, res) {
                 // set cookie with a session id
                 // internally, on the server side, it maps the session id to an object
                 // { auth: {userId }}
-                msg = {message: 'You have logged in successfully'};
+                
                 //res.send('credentials correct!');
-                res.send(msg);
+                 msg1={message:'You have successfully logged in'}
+                 res.send(msg1);
                 
               } else {
-                 msg = {error: 'UserName or Password is incorrect'};
                 //res.status(403).send('username/password is invalid');
-                res.send(msg);
+                 msg1={error:'incorrect username or password'};
+                 res.send(msg1);
               }
           }
       }
    });
 });
+
+
+
 
 
 app.get('/check-login', function (req, res) {
