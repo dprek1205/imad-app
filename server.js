@@ -95,7 +95,8 @@ app.post('/create-user', function (req, res) {
    var salt = crypto.randomBytes(128).toString('hex');
    var dbString = hash(password, salt);
    /* try */
-   pool.query('SELECT * FROM "user" WHERE username = $1', [username], function (err, result) {
+   
+     pool.query('SELECT * FROM "user" WHERE username = $1', [username], function (err, result) {
       if (err) {
           //res.status(500).send(err.toString());
           msg1={error:'Unable to create user!'};
@@ -106,8 +107,8 @@ app.post('/create-user', function (req, res) {
               //res.status(403).send('username/password is invalid');
               msg1={error:'Username already exists!'};
               res.status(403).send(msg1);
-          }
-     else {
+      }}
+          });
    
 
    
@@ -125,16 +126,12 @@ app.post('/create-user', function (req, res) {
       } else {
          // original res.send('User successfully created: ' + username);
          
-         msg1={message:'You have successfully registered!'}
+         msg1={message:'You have successfully registered!'};
                  res.send(msg1);
       }
    });
-   /* add */
-     }}
-   /* end add*/
-     
-   
-});
+  
+   });
 
 
 app.post('/login', function (req, res) {
