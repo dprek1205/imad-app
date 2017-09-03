@@ -102,7 +102,8 @@ app.post('/create-user', function (req, res) {
           msg1={error:'Unable to create user!'};
           res.status(500).send(msg1);
           
-      } else {
+      } else
+      {
       if (result.rows.length  > 0) {
               //res.status(403).send('username/password is invalid');
               msg1={error:'Username already exists!'};
@@ -132,7 +133,8 @@ app.post('/create-user', function (req, res) {
    });
    
    /* add */
-      }}  
+      }} 
+     });
       /* emd add */
    });
 
